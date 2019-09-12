@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: #333;
+    font-family: 'roboto slab', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    border-bottom: 4px solid;
+    -moz-border-image: -moz-linear-gradient(to left, #79cc9e 0%, #beedec 25%, #c5ceff 50%, #cabd96 75%, #b591c7 100%);
+    -webkit-border-image: -webkit-linear-gradient(to left, #79cc9e 0%, #beedec 25%, #c5ceff 50%, #cabd96 75%, #b591c7 100%);
+    border-image: linear-gradient(to left, #f52121, #0ef3ef, #28e90e, #f01b1b);
+    border-image-slice: 1;
+}
+
+.navbar-brand {
+    font-family: 'Roboto Slab', serif;
+}
+
+.navbar.navbar-light .navbar-toggler-icon {
+    background-image: url('https://mdbootstrap.com/img/svg/hamburger3.svg?color=fff');
+}
+
+.navbar-collapse .nav-link {
+    font-family: 'Heebo', sans-serif;
+}
+
+.nav-item.nav-link:hover {
+    color: #fff;
+}
+
+.view {
+    position: relative;
+    overflow: hidden;
+}
+
+.view video.video-intro {
+    width: 100%;
+    min-height: 50vh;
+}
+
+.view .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+}
+
+.content-video {
+    width: 100%;
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+}
+
+.rgba-black-light,
+.rgba-black-light:after {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.quote {
+    color: aquamarine;
+}
+
+.quote::before {
+    content: open-quote;
+}
+
+.quote::after {
+    content: close-quote;
+}
+
+.fa-facebook-f{
+    color: #0077ff;
+}
+
+.fa-twitter{
+    color: #0ef3ef;
+}
+
+.fa-google-plus-g{
+    color: #cc2121;
+}
+
+.fa-linkedin-in{
+    color: #0ef3ef;
+}
+
+.fa-instagram{
+    color: #f55d21;
+}
+
+.book-img{
+    width: 100%;
+}
+/* Dropdown hoverable */
+@media(min-width: 50rem) {
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}

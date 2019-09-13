@@ -1,8 +1,8 @@
-<form action="/register" class="mt-5">
-    <div class="container">
+<form action="/register" method="post" enctype="multipart/form-data">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-md-10 m-auto">
-                <div class="card mt-5">
+                <div class="card">
                     <div class="card-header text-center">Register</div>
                     <div class="card-body">
                         <div class="form-group">
@@ -24,25 +24,24 @@
                             <input type="number" name="mobileno" id="mobileno" class="form-control"
                                 placeholder="Enter Your Mobliel Number" required>
                         </div>
-                        <label for="profile">Upload Profile Picture</label>
-                        <div class="custom-file mb-2">
-                            <input type="file" class="custom-file-input" id="profile"
-                                accept="image/gif, image/jpeg, image/png" name="profilePic">
-                            <label class="custom-file-label" for="profile">choose Profile Picture</label>
+                        <div class="form-group text-white">
+                            <label for="uploadPic" class="text-dark">Upload Profile Picture</label>
+                            <input type="file" class="form-control-file" id="uploadPic"
+                                accept="image/gif, image/jpeg, image/png" name="profile_pic" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input class="form-control" type="text" id="password" name="password"
+                            <input class="form-control" type="password" id="password" name="password"
                                 placeholder="Enter Your Password">
                         </div>
                         <div class="form-group">
                             <label for="confpassword">Confirm password</label>
-                            <input class="form-control" type="text" id="confpassword" name="confpassword"
+                            <input class="form-control" type="password" id="confpassword" name="confpassword"
                                 placeholder="confirm Your password">
                         </div>
                         <div class="form-group">
-                            <label for="name">Secret code for Recovery</label>
-                            <input class="form-control" type="text" id="name" name="name"
+                            <label for="secret">Secret code for Recovery</label>
+                            <input class="form-control" type="text" id="secret" name="secret"
                                 placeholder="Enter Secret code">
                         </div>
                         <div class="row d-flex justify-content-center">

@@ -28,7 +28,9 @@
   {{>_Navbar}}
   {{>_flash}}
   {{>_error}}
-  {{{body}}}
+  <div class="data">
+    {{{body}}}
+  </div>
   {{>_footer}}
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -42,14 +44,14 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"
-        integrity="sha256-NXRS8qVcmZ3dOv3LziwznUHPegFhPZ1F/4inU7uC8h0=" crossorigin="anonymous"></script>
+    integrity="sha256-NXRS8qVcmZ3dOv3LziwznUHPegFhPZ1F/4inU7uC8h0=" crossorigin="anonymous"></script>
   <script>
     AOS.init();
     $('.slider').slick({
-            infinite: true,
-            slideToshow: 1,
-            slideToScroll: 1
-        });
+      infinite: true,
+      slideToshow: 1,
+      slideToScroll: 1
+    });
   </script>
 </body>
 

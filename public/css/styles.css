@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    margin-top: 60px;
     padding: 0;
     box-sizing: border-box;
     background: #333;
@@ -30,8 +29,16 @@ body {
     font-family: 'Heebo', sans-serif;
 }
 
-.nav-item.nav-link:hover {
-    color: #fff;
+.nav-link:hover {
+    color: #1eff00 !important;
+}
+
+.nav-link {
+    font-weight: bold;
+}
+
+.data{
+    margin-bottom: 20px;
 }
 
 .view,
@@ -47,7 +54,7 @@ body {
     background-attachment: fixed;
 }
 
-.view video.video-intro {
+.view  video{
     width: 100%;
     min-height: 50vh;
 }
@@ -93,16 +100,18 @@ input:hover {
     outline: none;
 }
 
-.animation{
+.animation {
     position: relative;
 }
 
-.animation svg{
+.animation svg {
     position: absolute;
+    top: 10px;
+
 }
 
 .parallax>use {
-    animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+    animation: move-forever 25s cubic-bezier(.55, .5, .55, .5) infinite;
 }
 
 .parallax>use:nth-child(1) {
@@ -137,7 +146,7 @@ input:hover {
 
 .parallax>use:nth-child(7) {
     animation-delay: -5s;
-    animation-duration: 26s;
+    animation-duration: 5s;
 }
 
 @keyframes move-forever {
@@ -145,9 +154,24 @@ input:hover {
         transform: translate3d(-90px, 0, 0);
     }
 
-    100% {
-        transform: translate3d(85px, 0, 0);
+    50% {
+        transform: translate3d(50px, 10px, 0);
     }
+
+    100% {
+        transform: translate3d(85px, -2px, 0);
+    }
+}
+
+h1 {
+    padding-top: 50px;
+    text-align: center;
+    font-family: 'Gloria Hallelujah', cursive;
+    color: #eda698;
+}
+
+.top {
+    margin-top: -80px;
 }
 
 .rgba-black-light,
@@ -199,5 +223,9 @@ input:hover {
         height: 40px;
         min-height: 40px;
         width: 100%;
+    }
+
+    .data{
+        margin-top: 8px;
     }
 }

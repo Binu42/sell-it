@@ -25,6 +25,8 @@ require('./models/Users');
 const User = mongoose.model('users');
 require('./config/passport')(passport);
 
+const {search} = require('./helper/hbs');
+
 // To save session as cookies
 app.use(session({
     secret: 'Hello world',
@@ -50,6 +52,9 @@ app.use(function (req, res, next) {
 
 // Middleware
 app.engine('handlebars', exphbs({
+    helpers: {
+        search: search
+    },
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');

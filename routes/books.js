@@ -60,7 +60,9 @@ router.post('/sell', ensureAuthenticated, upload.single('book_pic'), async (req,
 });
 
 router.get('/:id', ensureAuthenticated, (req, res)=> {
-    Book.findOne({id: req.body.id})
+    Book.findOne({_id: req.params.id})
+    .populate('user', ['name', 'address', 'contact', 'profile'])
+    .populate('comments.commentUser', ['name', 'profile'])
     .then(item => {
         res.render('book/detail', {item: item});
     })
@@ -87,6 +89,22 @@ router.post('/recycle', ensureAuthenticated, (req, res) => {
     .catch(error => {
         console.log(error);
         return;
+    })
+})
+
+router.post('/comments/:id', (req, res)=> {
+    Book.findOne({_id: req.params.id})
+    .then(book => {
+        const newComment = {
+            commentBody: req.body.comment,
+            commentUser: req.user.id
+        }
+        book.comments.unshift(newComment);
+        book.save()
+            .then(book => {
+                req.flash('success_msg', 'Your Comment Added !');
+                res.redirect('/books/' + book.id);
+            })
     })
 })
 

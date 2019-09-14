@@ -48,6 +48,8 @@ router.post('/sell', ensureAuthenticated, upload.single('sport_pic'), async(req,
 
 router.get('/:id', (req, res)=> {
     Sport.findOne({_id: req.params.id})
+    .populate('user', ['name', 'address', 'contact', 'profile'])
+    .populate('comments.commentUser', ['name', 'profile'])
     .then(item => {
         res.render('sport/details', {item: item});
     })
@@ -56,4 +58,22 @@ router.get('/:id', (req, res)=> {
         return;
     })
 })
+
+router.post('/comments/:id', (req, res)=> {
+    Sport.findOne({_id: req.params.id})
+    .then(sport => {
+        const newComment = {
+            commentBody: req.body.comment,
+            commentUser: req.user.id
+        }
+
+        sport.comments.unshift(newComment);
+        sport.save()
+            .then(sport => {
+                req.flash('success_msg', 'Your Comment Added !');
+                res.redirect('/sports/' + sport.id);
+            })
+    })
+})
+
 module.exports = router;

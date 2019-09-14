@@ -17,6 +17,20 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    comments: [{
+        commentBody: {
+            type: String,
+            required: true
+        },
+        commentDate: {
+            type: Date,
+            default: Date.now
+        },
+        commentUser: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'users'
+        }
+    }],
     image: {
         type: String,
         required: true

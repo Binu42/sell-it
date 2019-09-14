@@ -20,6 +20,12 @@ const upload = require('./handlers/multer');
 require('./handlers/cloudinary');
 connectDB();
 
+require('./models/Books');
+const Book = mongoose.model('books');
+
+require('./models/Sports');
+const Sport = mongoose.model('sports');
+
 
 require('./models/Users');
 const User = mongoose.model('users');
@@ -128,6 +134,16 @@ app.post('/login', function (req, res, next) {
         failureRedirect: "/login",
         failureFlash: true
     })(req, res, next);
+})
+
+app.get('/cart', (req, res)=> {
+    Book.find({user: req.user.id})
+    .then(books => {
+        Sport.find({user: req.user.id})
+        .then(sports => {
+            res.render('index/cart', {books: books, sports: sports});
+        })
+    })
 })
 
 // route for logout of user

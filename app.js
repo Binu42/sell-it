@@ -18,6 +18,9 @@ const book = require('./routes/books');
 const sport = require('./routes/sports');
 const connectDB = require('./config/connect');
 const upload = require('./handlers/multer');
+const {
+    ensureAuthenticated
+} = require('./helper/auth');
 require('./handlers/cloudinary');
 connectDB();
 
@@ -143,7 +146,7 @@ app.post('/login', function (req, res, next) {
     })(req, res, next);
 })
 
-app.get('/cart', (req, res)=> {
+app.get('/cart', ensureAuthenticated, (req, res)=> {
     Book.find({user: req.user.id})
     .then(books => {
         Sport.find({user: req.user.id})
@@ -153,7 +156,7 @@ app.get('/cart', (req, res)=> {
     })
 })
 
-app.get('/profile', (req, res) => {
+app.get('/profile', ensureAuthenticated, (req, res) => {
     User.find({_id: req.user.id})
     .then(user => {
         res.render('index/profile', {user: user});
@@ -161,7 +164,7 @@ app.get('/profile', (req, res) => {
 })
 
 // route for logout of user
-app.get('/logout', (req, res) => {
+app.get('/logout', ensureAuthenticated, (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
     res.redirect('/login');

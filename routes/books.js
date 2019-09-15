@@ -54,7 +54,7 @@ router.post('/sell', ensureAuthenticated, upload.single('book_pic'), async (req,
 
     newBook.save()
         .then(book => {
-            req.flash('sucess_msg', 'Successfully uploaded');
+            req.flash('success_msg', 'Successfully uploaded');
             res.redirect('/books/buy');
         })
         .catch(error => {
@@ -91,7 +91,7 @@ router.post('/recycle', ensureAuthenticated, (req, res) => {
     });
     recycle.save()
         .then(rec => {
-            req.flash('sucess_msg', 'Successfully uploaded');
+            req.flash('success_msg', 'Successfully uploaded');
             res.redirect('/');
         })
         .catch(error => {
@@ -100,7 +100,7 @@ router.post('/recycle', ensureAuthenticated, (req, res) => {
         })
 })
 
-router.post('/comments/:id', (req, res) => {
+router.post('/comments/:id', ensureAuthenticated, (req, res) => {
     Book.findOne({
             _id: req.params.id
         })
@@ -118,7 +118,7 @@ router.post('/comments/:id', (req, res) => {
         })
 })
 
-router.get('/comments/:bookId/:commentId', (req, res) => {
+router.get('/comments/:bookId/:commentId', ensureAuthenticated, (req, res) => {
     Book.findOne({
             _id: req.params.bookId
         })
@@ -134,7 +134,7 @@ router.get('/comments/:bookId/:commentId', (req, res) => {
         })
 })
 
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
     Book.findOne({
             _id: req.params.id
         })
@@ -149,7 +149,7 @@ router.get('/edit/:id', (req, res) => {
         })
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', ensureAuthenticated, (req, res) => {
     Book.deleteOne({
             _id: req.params.id
         })
@@ -159,7 +159,7 @@ router.delete('/:id', (req, res) => {
         })
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', ensureAuthenticated, (req, res) => {
     Book.findOne({
             _id: req.params.id
         })
@@ -182,7 +182,7 @@ router.put('/:id', (req, res) => {
         })
 });
 
-router.post('/search', (req, res) => {
+router.post('/search', ensureAuthenticated, (req, res) => {
     Book.find({
             section: req.body.section
         })

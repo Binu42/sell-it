@@ -1,13 +1,15 @@
-<div class="m-3">
+<div class="m-5">
     <div class="row mt-3">
         <div class="col-md-3">
             <img src="{{item.image}}" class="img-fluid">
             {{#if (Icon user.id item.user.id)}}
-            <div class="btn-group btn-group-lg mt-2" role="group">
-                <a href="/books/edit/{{item.id}}" class="btn btn-info"><i class="fa fa-pen" aria-hidden="true"></i>
-                    Edit</a>
-                <a href="/books/delete/{{item.id}}" class="btn btn-danger"><i class="fa fa-trash"
-                        aria-hidden="true"></i> Delete</a>
+            <div class="mt-2">
+                <a class="btn btn-info d-inline" href="/sports/edit/{{item.id}}"><i class="fa fa-pen"
+                        aria-hidden="true"></i> Edit</a>
+                <form action="/sports/{{item.id}}?_method=DELETE" method="post" class="d-inline">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</button>
+                </form>
             </div>
             {{/if}}
         </div>

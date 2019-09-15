@@ -36,10 +36,6 @@ body {
     font-weight: bold;
 }
 
-.data{
-    margin-bottom: 20px;
-}
-
 .view,
 .parallax1 {
     position: relative;
@@ -55,7 +51,7 @@ body {
 
 .view  video{
     width: 100%;
-    min-height: 50vh;
+    min-height: 100%;
 }
 
 .view .mask {

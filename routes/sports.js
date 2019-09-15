@@ -50,7 +50,7 @@ router.post('/sell', ensureAuthenticated, upload.single('sport_pic'), async (req
         })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', ensureAuthenticated, (req, res) => {
     Sport.findOne({
             _id: req.params.id
         })
@@ -67,7 +67,7 @@ router.get('/:id', (req, res) => {
         })
 })
 
-router.post('/comments/:id', (req, res) => {
+router.post('/comments/:id', ensureAuthenticated, (req, res) => {
     Sport.findOne({
             _id: req.params.id
         })
@@ -86,7 +86,7 @@ router.post('/comments/:id', (req, res) => {
 });
 
 
-router.get('/comments/:sportId/:commentId', (req, res) => {
+router.get('/comments/:sportId/:commentId', ensureAuthenticated, (req, res) => {
     Sport.findOne({
             _id: req.params.sportId
         })
@@ -102,7 +102,7 @@ router.get('/comments/:sportId/:commentId', (req, res) => {
         })
 })
 
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
     Sport.findOne({
             _id: req.params.id
         })
@@ -117,7 +117,40 @@ router.get('/edit/:id', (req, res) => {
         })
 });
 
-router.post('/search', (req, res) => {
+router.delete('/:id', ensureAuthenticated, (req, res) => {
+    Sport.deleteOne({
+            _id: req.params.id
+        })
+        .then(sport => {
+            req.flash('error_msg', "Sport is Removed");
+            res.redirect('/sports/buy');
+        })
+});
+
+router.put('/:id', ensureAuthenticated, (req, res) => {
+    Sport.findOne({
+            _id: req.params.id
+        })
+        .then(sport => {
+            sport.name = req.body.name,
+            sport.company = req.body.company,
+            sport.used = req.body.year,
+            sport.description = req.body.description,
+            sport.price = req.body.price
+
+            sport.save()
+                .then(sport => {
+                    req.flash('success_msg', "Sport is updated");
+                    res.redirect('/sports/buy');
+                })
+        })
+        .catch(error => {
+            console.log(error);
+            return;
+        })
+});
+
+router.post('/search', ensureAuthenticated, (req, res) => {
     let searchedItem = [];
     Sport.find({})
         .then(sports => {

@@ -2,6 +2,14 @@
     <div class="row mt-3">
         <div class="col-md-3">
             <img src="{{item.image}}" class="img-fluid">
+            {{#if (Icon user.id item.user.id)}}
+            <div class="btn-group btn-group-lg mt-2" role="group">
+                <a href="/books/edit/{{item.id}}" class="btn btn-info"><i class="fa fa-pen" aria-hidden="true"></i>
+                    Edit</a>
+                <a href="/books/delete/{{item.id}}" class="btn btn-danger"><i class="fa fa-trash"
+                        aria-hidden="true"></i> Delete</a>
+            </div>
+            {{/if}}
         </div>
         <div class="col-md-6 text-white">
             <h3>{{item.name}}</h3>
@@ -31,7 +39,8 @@
                 <form action="/sports/comments/{{item.id}}" method="post">
                     <div class="form-groupt">
                         <label for="comments" class="h5">Comment</label>
-                        <textarea name="comment" id="comments" class="form-control" placeholder="Type Your comments here"></textarea>
+                        <textarea name="comment" id="comments" class="form-control"
+                            placeholder="Type Your comments here"></textarea>
                     </div>
                     <button type="submit" class="mt-2 btn btn-success">Submit</button>
                 </form>
@@ -41,10 +50,18 @@
                     {{#each item.comments}}
                     <div class="card mt-2">
                         <div class="card-header bg-info">
-                            <img src="{{commentUser.profile}}" class="img-fluid rounded-circle d-inline mx-2" width="70">
+                            <img src="{{commentUser.profile}}" class="img-fluid rounded-circle d-inline mx-2"
+                                width="70">
                             <p class="d-inline">{{commentUser.name}}</p>
+                            {{#if (Icon ../user.id commentUser.id)}}
+                            <div class="d-inline float-right">
+                                <a href="/sports/comments/{{../item.id}}/{{id}}" class="btn btn-danger"><i
+                                        class="fa fa-trash" aria-hidden="true"></i></a>
+                            </div>
+                            {{/if}}
                         </div>
                         <h4 class="p-4">{{commentBody}}</h4>
+                        <p class="p-4 text-muted">{{formatDate commentDate 'MMMM Do YYYY'}}</p>
                     </div>
                     {{/each}}
                 </div>

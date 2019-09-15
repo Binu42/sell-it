@@ -106,7 +106,7 @@ input:hover {
 .animation svg {
     position: absolute;
     top: 10px;
-
+    clip-path: circle(67.5% at 50% 50%);
 }
 
 .parallax>use {
@@ -162,6 +162,7 @@ input:hover {
     }
 }
 
+
 h1 {
     padding-top: 50px;
     text-align: center;
@@ -190,6 +191,7 @@ h1 {
     content: close-quote;
 }
 
+/* color for fontawesome */
 .fa-facebook-f {
     color: #0077ff;
 }

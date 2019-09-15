@@ -1,0 +1,45 @@
+<form action="/sports/sell" method="post" enctype="multipart/form-data">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-10 m-auto">
+                <div class="card">
+                    <div class="card-header text-center">
+                        Sport Item Details
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="sport Item name" value="{{sport.name}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" class="form-control"
+                                placeholder="sport Item company" value="{{sport.company}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Year You have Used</label>
+                            <input type="number" id="year" name="year" placeholder="Year You have used it"
+                                class="form-control" value="{{sport.used}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" name="description" id="description"
+                                placeholder="Enter a Brief Description about Book">{{sport.description}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" name="price" placeholder="Price you charge for it."
+                                class="form-control" value="{{sport.price}}">
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-sm-6">
+                                <input type="submit" value="Submit" class="btn btn-success mb-4 btn-block"
+                                    id="submit-button">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

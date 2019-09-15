@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const cloudinary = require('cloudinary');
 const bcrypt = require('bcryptjs');
+const methodOverride = require('method-override');
 
 
 const app = express();
@@ -31,7 +32,7 @@ require('./models/Users');
 const User = mongoose.model('users');
 require('./config/passport')(passport);
 
-const {search} = require('./helper/hbs');
+const {search, formatDate, Icon, select} = require('./helper/hbs');
 
 // To save session as cookies
 app.use(session({
@@ -56,10 +57,16 @@ app.use(function (req, res, next) {
     next();
 })
 
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'))
+
 // Middleware
 app.engine('handlebars', exphbs({
     helpers: {
-        search: search
+        search: search,
+        formatDate: formatDate,
+        Icon: Icon,
+        select: select
     },
     defaultLayout: 'main'
 }));
@@ -143,6 +150,13 @@ app.get('/cart', (req, res)=> {
         .then(sports => {
             res.render('index/cart', {books: books, sports: sports});
         })
+    })
+})
+
+app.get('/profile', (req, res) => {
+    User.find({_id: req.user.id})
+    .then(user => {
+        res.render('index/profile', {user: user});
     })
 })
 

@@ -10,7 +10,9 @@ require('../models/Recycle');
 const Recycle = mongoose.model('recycles');
 
 const upload = require('../handlers/multer');
-const {ensureAuthenticated} = require('../helper/auth');
+const {
+    ensureAuthenticated
+} = require('../helper/auth');
 
 router.get('/sell', ensureAuthenticated, (req, res) => {
     res.render('book/sell');
@@ -18,9 +20,11 @@ router.get('/sell', ensureAuthenticated, (req, res) => {
 
 router.get('/buy', ensureAuthenticated, (req, res) => {
     Book.find()
-    .then(books => {
-        res.render('book/buy', {books: books});
-    })
+        .then(books => {
+            res.render('book/buy', {
+                books: books
+            });
+        })
 })
 
 router.get('/rental', ensureAuthenticated, (req, res) => {
@@ -49,27 +53,31 @@ router.post('/sell', ensureAuthenticated, upload.single('book_pic'), async (req,
     });
 
     newBook.save()
-    .then(book => {
-        req.flash('sucess_msg', 'Successfully uploaded');
-        res.redirect('/books/buy');
-    })
-    .catch(error => {
-        console.log(error);
-        return
-    })
+        .then(book => {
+            req.flash('sucess_msg', 'Successfully uploaded');
+            res.redirect('/books/buy');
+        })
+        .catch(error => {
+            console.log(error);
+            return
+        })
 });
 
-router.get('/:id', ensureAuthenticated, (req, res)=> {
-    Book.findOne({_id: req.params.id})
-    .populate('user', ['name', 'address', 'contact', 'profile'])
-    .populate('comments.commentUser', ['name', 'profile'])
-    .then(item => {
-        res.render('book/detail', {item: item});
-    })
-    .catch(error => {
-        console.log(error);
-        return;
-    })
+router.get('/:id', ensureAuthenticated, (req, res) => {
+    Book.findOne({
+            _id: req.params.id
+        })
+        .populate('user', ['name', 'address', 'contact', 'profile'])
+        .populate('comments.commentUser', ['name', 'profile'])
+        .then(item => {
+            res.render('book/detail', {
+                item: item
+            });
+        })
+        .catch(error => {
+            console.log(error);
+            return;
+        })
 });
 
 router.post('/recycle', ensureAuthenticated, (req, res) => {
@@ -82,30 +90,107 @@ router.post('/recycle', ensureAuthenticated, (req, res) => {
         date: req.body.date
     });
     recycle.save()
-    .then(rec => {
-        req.flash('sucess_msg', 'Successfully uploaded');
-        res.redirect('/');
-    })
-    .catch(error => {
-        console.log(error);
-        return;
-    })
+        .then(rec => {
+            req.flash('sucess_msg', 'Successfully uploaded');
+            res.redirect('/');
+        })
+        .catch(error => {
+            console.log(error);
+            return;
+        })
 })
 
-router.post('/comments/:id', (req, res)=> {
-    Book.findOne({_id: req.params.id})
-    .then(book => {
-        const newComment = {
-            commentBody: req.body.comment,
-            commentUser: req.user.id
-        }
-        book.comments.unshift(newComment);
-        book.save()
-            .then(book => {
-                req.flash('success_msg', 'Your Comment Added !');
-                res.redirect('/books/' + book.id);
-            })
-    })
+router.post('/comments/:id', (req, res) => {
+    Book.findOne({
+            _id: req.params.id
+        })
+        .then(book => {
+            const newComment = {
+                commentBody: req.body.comment,
+                commentUser: req.user.id
+            }
+            book.comments.unshift(newComment);
+            book.save()
+                .then(book => {
+                    req.flash('success_msg', 'Your Comment Added !');
+                    res.redirect('/books/' + book.id);
+                })
+        })
+})
+
+router.get('/comments/:bookId/:commentId', (req, res) => {
+    Book.findOne({
+            _id: req.params.bookId
+        })
+        .then(book => {
+            const index = book.comments.map(comment => comment.id).indexOf(req.params.commentId);
+            if (index !== -1) {
+                book.comments.splice(index, 1);
+                book.save()
+                    .then(book => {
+                        res.redirect('/books/' + req.params.bookId);
+                    })
+            }
+        })
+})
+
+router.get('/edit/:id', (req, res) => {
+    Book.findOne({
+            _id: req.params.id
+        })
+        .then(book => {
+            res.render('book/edit', {
+                book: book
+            });
+        })
+        .catch(error => {
+            console.log(error);
+            return;
+        })
+})
+
+router.delete('/:id', (req, res) => {
+    Book.deleteOne({
+            _id: req.params.id
+        })
+        .then(book => {
+            req.flash('error_msg', "Book is Removed");
+            res.redirect('/books/buy');
+        })
+});
+
+router.put('/:id', (req, res) => {
+    Book.findOne({
+            _id: req.params.id
+        })
+        .then(book => {
+            book.name = req.body.name,
+                book.author = req.body.authname,
+                book.section = req.body.section,
+                book.description = req.body.description,
+                book.price = req.body.price
+
+            book.save()
+                .then(book => {
+                    req.flash('success_msg', "Book is updated");
+                    res.redirect('/books/buy');
+                })
+        })
+        .catch(error => {
+            console.log(error);
+            return;
+        })
+});
+
+router.post('/search', (req, res) => {
+    Book.find({
+            section: req.body.section
+        })
+        .then(books => {
+            res.render('book/buy', {
+                books: books, value: req.body.section
+            });
+        })
 })
 
 module.exports = router;

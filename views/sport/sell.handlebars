@@ -1,4 +1,4 @@
-<form action="/sports/sell" method="post" enctype="multipart/form-data">
+<form action="/sports/sell" method="post" enctype="multipart/form-data" class="sport-Sell">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-10 m-auto">
@@ -9,32 +9,38 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="sport Item name">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="sport Item name" required>
+                            <div class="alert alert-danger d-none" id="name-feedback--sportSell"></div>
                         </div>
                         <div class="form-group">
                             <label for="company">Company</label>
                             <input type="text" id="company" name="company" class="form-control"
-                                placeholder="sport Item company">
+                                placeholder="sport Item company" required>
+                            <div class="alert alert-danger d-none" id="company-feedback--sportSell"></div>
                         </div>
                         <div class="form-group">
                             <label for="year">Year You have Used</label>
                             <input type="number" id="year" name="year" placeholder="Year You have used it"
-                                class="form-control">
+                                class="form-control" required>
+                            <div class="alert alert-danger d-none" id="year-feedback--sportSell"></div>
                         </div>
                         <div class="form-group text-dark">
                             <label for="uploadPic">Upload Sport Item Picture</label>
                             <input type="file" class="form-control-file" id="uploadPic"
                                 accept="image/gif, image/jpeg, image/png" name="sport_pic" required>
+                            <div class="alert alert-danger d-none" id="image-feedback--sportSell"></div>
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea class="form-control" name="description" id="description"
-                                placeholder="Enter a Brief Description about Book"></textarea>
+                                placeholder="Enter a Brief Description about Book" required></textarea>
+                            <div class="alert alert-danger d-none" id="description-feedback--sportSell"></div>
                         </div>
                         <div class="form-group">
                             <label for="price">Price</label>
                             <input type="number" id="price" name="price" placeholder="Price you charge for it."
-                                class="form-control">
+                                class="form-control" required>
+                            <div class="alert alert-danger d-none" id="price-feedback--sportSell"></div>
                         </div>
                         <div class="row d-flex justify-content-center">
                             <div class="col-sm-6">

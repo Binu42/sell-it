@@ -1,4 +1,4 @@
-<form action="/books/recycle" method="post">
+<form action="/books/recycle" method="post" class="recycle">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-10 m-auto">
@@ -13,24 +13,29 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="quantity">Enter the Quantity in kg</label>
-                            <input class="form-control" type="number" name="quantity" id="quantity" placeholder="Enter the quantiy to sell in kg">
+                            <input class="form-control" type="number" name="quantity" id="quantity" placeholder="Enter the quantiy to sell in kg" required>
+                            <div class="alert alert-danger d-none" id="quantity-feedback--recycle"></div>
                         </div>
                         <div class="form-group">
                             <label for="address">Enter Address</label>
-                            <textarea class="form-control" type="number" name="address" id="address" placeholder="Enter the Address"></textarea>
+                            <textarea class="form-control" type="number" name="address" id="address" placeholder="Enter the Address" required></textarea>
+                            <div class="alert alert-danger d-none" id="address-feedback--recycle"></div>
                         </div>
                         <div class="form-group">
                             <label for="contact">Enter contact Number</label>
-                            <input class="form-control" type="number" name="contact" id="contact" placeholder="Enter the contact Number"></input>
+                            <input class="form-control" type="number" name="contact" id="contact" placeholder="Enter the contact Number" required></input>
+                            <div class="alert alert-danger d-none" id="contact-feedback--recycle"></div>
                         </div>
                         <label for="">Free to Sell</label>
                         <div class="form-group ml-4">
                             <label for="time">Enter Time</label>
-                            <input class="form-control" type="time" name="time" id="time">
+                            <input class="form-control" type="time" name="time" id="time" required>
+                            <div class="alert alert-danger d-none" id="time-feedback--recycle"></div>
                         </div>
                         <div class="form-group ml-4">
                             <label for="date">Enter Date</label>
-                            <input class="form-control" type="date" name="date" id="date">
+                            <input class="form-control" type="date" name="date" id="date" required>
+                            <div class="alert alert-danger d-none" id="date-feedback--recycle"></div>
                         </div>
 
                         <div class="row d-flex justify-content-center">

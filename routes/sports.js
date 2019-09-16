@@ -91,13 +91,18 @@ router.get('/comments/:sportId/:commentId', ensureAuthenticated, (req, res) => {
             _id: req.params.sportId
         })
         .then(sport => {
-            const index = sport.comments.map(comment => comment.id).indexOf(req.params.commentId);
-            if (index !== -1) {
-                sport.comments.splice(index, 1);
-                sport.save()
-                    .then(sport => {
-                        res.redirect('/sports/' + req.params.sportId);
-                    })
+            if (sport.user.toString() === req.user.id.toString()) {
+                const index = sport.comments.map(comment => comment.id).indexOf(req.params.commentId);
+                if (index !== -1) {
+                    sport.comments.splice(index, 1);
+                    sport.save()
+                        .then(sport => {
+                            res.redirect('/sports/' + req.params.sportId);
+                        })
+                }
+            } else {
+                req.flash('error_msg', 'You\'r not Authorized');
+                res.redirect('/sports/' + req.params.sportId);
             }
         })
 })
@@ -107,9 +112,14 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
             _id: req.params.id
         })
         .then(sport => {
-            res.render('sport/edit', {
-                sport: sport
-            });
+            if (sport.user.toString() === req.user.id.toString()) {
+                res.render('sport/edit', {
+                    sport: sport
+                });
+            } else {
+                req.flash('error_msg', 'You\'r not Authorized');
+                res.redirect('/sports/' + req.params.sportId);
+            }
         })
         .catch(error => {
             console.log(error);
@@ -118,13 +128,25 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
 });
 
 router.delete('/:id', ensureAuthenticated, (req, res) => {
-    Sport.deleteOne({
-            _id: req.params.id
-        })
-        .then(sport => {
-            req.flash('error_msg', "Sport is Removed");
-            res.redirect('/sports/buy');
-        })
+    
+    const item = Sport.findById(req.params.id);
+    if (item.user.toString() == req.user.id.toString()) {
+        item.remove()
+            .then(item => {
+                req.flash('success_msg', "Sport is Removed");
+                res.redirect('/sports/buy');
+            })
+    } else {
+        req.flash('error_msg', 'You\'r not Authorized');
+        res.redirect('/sports/buy');
+    }
+    // Sport.deleteOne({
+    //         _id: req.params.id
+    //     })
+    //     .then(sport => {
+    //         req.flash('success_msg', "Sport is Removed");
+    //         res.redirect('/sports/buy');
+    //     })
 });
 
 router.put('/:id', ensureAuthenticated, (req, res) => {
@@ -132,17 +154,21 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
             _id: req.params.id
         })
         .then(sport => {
-            sport.name = req.body.name,
-            sport.company = req.body.company,
-            sport.used = req.body.year,
-            sport.description = req.body.description,
-            sport.price = req.body.price
-
-            sport.save()
-                .then(sport => {
-                    req.flash('success_msg', "Sport is updated");
-                    res.redirect('/sports/buy');
-                })
+            if (sport.user.toString() === req.user.id.toString()) {
+                sport.name = req.body.name,
+                    sport.company = req.body.company,
+                    sport.used = req.body.year,
+                    sport.description = req.body.description,
+                    sport.price = req.body.price
+                sport.save()
+                    .then(sport => {
+                        req.flash('success_msg', "Sport is updated");
+                        res.redirect('/sports/buy');
+                    })
+            } else {
+                req.flash('error_msg', 'You\'r not Authorized');
+                res.redirect('/sports/buy');
+            }
         })
         .catch(error => {
             console.log(error);

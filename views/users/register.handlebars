@@ -1,4 +1,4 @@
-<form action="/register" method="post" enctype="multipart/form-data">
+<form action="/register" method="post" enctype="multipart/form-data" class="register-form">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-10 m-auto">
@@ -7,42 +7,51 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input class="form-control" type="text" id="name" name="name" placeholder="Enter Your Name">
+                            <input class="form-control" type="text" id="name" name="name" placeholder="Enter Your Name"
+                                required>
+                            <div class="alert alert-danger d-none" id="name-feedback--register"></div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input class="form-control" type="email" id="email" name="email"
-                                placeholder="Enter Your Email">
+                                placeholder="Enter Your Email" required>
+                            <div class="alert alert-danger d-none" id="email-feedback--register"></div>
                         </div>
                         <div class="form-group">
                             <label for="location">Address</label>
                             <input type="text" name="location" id="location" class="form-control"
                                 placeholder="Enter Your permanent Address" required>
+                            <div class="alert alert-danger d-none" id="address-feedback--register"></div>
                         </div>
                         <div class="form-group">
                             <label for="mobileno">Contact Number</label>
                             <input type="number" name="mobileno" id="mobileno" class="form-control"
-                                placeholder="Enter Your Mobliel Number" required>
+                                placeholder="Enter Your Moblile Number" required>
+                            <div class="alert alert-danger d-none" id="contact-feedback--register"></div>
                         </div>
                         <div class="form-group text-white">
                             <label for="uploadPic" class="text-dark">Upload Profile Picture</label>
                             <input type="file" class="form-control-file" id="uploadPic"
                                 accept="image/gif, image/jpeg, image/png" name="profile_pic" required>
+                            <div class="alert alert-danger d-none" id="image-feedback--register"></div>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input class="form-control" type="password" id="password" name="password"
-                                placeholder="Enter Your Password">
+                                placeholder="Enter Your Password" required>
+                            <div class="alert alert-danger d-none" id="password-feedback--register"></div>
                         </div>
                         <div class="form-group">
                             <label for="confpassword">Confirm password</label>
                             <input class="form-control" type="password" id="confpassword" name="confpassword"
-                                placeholder="confirm Your password">
+                                placeholder="confirm Your password" required>
+                            <div class="alert alert-danger d-none" id="confirmpassword-feedback--register"></div>
                         </div>
                         <div class="form-group">
                             <label for="secret">Secret code for Recovery</label>
                             <input class="form-control" type="text" id="secret" name="secret"
-                                placeholder="Enter Secret code">
+                                placeholder="Enter Secret code" required>
+                            <div class="alert alert-danger d-none" id="secret-feedback--register"></div>
                         </div>
                         <div class="row d-flex justify-content-center">
                             <div class="col-sm-6">

@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" class="login-form">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-10  m-auto">
@@ -11,11 +11,13 @@
                             <label for="email">E-mail</label>
                             <input type="text" class="form-control" name="email" id="email" aria-describedby="helpId"
                                 placeholder="Enter your e-mail">
+                            <div class="alert alert-danger d-none" id="email-feedback--login"></div>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" name="password" id="password"
                                 placeholder="Enter your Password">
+                            <div class="alert alert-danger d-none" id="password-feedback--login"></div>
                         </div>
                         <div class="form-group text-center">
                             <input type="submit" value="&emsp;Submit&emsp;" class="btn btn-success">

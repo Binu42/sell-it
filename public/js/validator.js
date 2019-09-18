@@ -142,7 +142,7 @@ $(function () {
     })
 
     image.blur(function () {
-        if (image.val().length < 10) {
+        if (image.val() === "") {
             $('#image-feedback--register').addClass('d-block');
             $('#image-feedback--register').text("Please give picture");
             $(this).css('box-shadow', '0px 0px 5px red');
@@ -209,7 +209,7 @@ $(function () {
     })
 
     image.blur(function () {
-        if (image.val().trim().length < 5) {
+        if (image.val().trim() === "") {
             $('#image-feedback--bookSell').addClass('d-block');
             $('#image-feedback--bookSell').text("Please give image");
             $(this).css('box-shadow', '0px 0px 5px red');
@@ -235,7 +235,7 @@ $(function () {
     })
 
     price.blur(function () {
-        if (price.val().trim().length < 5) {
+        if (price.val().trim() === "") {
             $('#price-feedback--bookSell').addClass('d-block');
             $('#price-feedback--bookSell').text("Please give price");
             $(this).css('box-shadow', '0px 0px 5px red');
@@ -277,7 +277,7 @@ $(function () {
     })
 
     company.blur(function () {
-        if (company.val().trim() === "") {
+        if (company.val().trim().length < 3) {
             $('#company-feedback--sportSell').addClass('d-block');
             $('#company-feedback--sportSell').text("Please give valid company name");
             $(this).css('box-shadow', '0px 0px 5px red');
@@ -292,7 +292,7 @@ $(function () {
     year.blur(function () {
         if (year.val() > 5 || year.val() === "") {
             $('#year-feedback--sportSell').addClass('d-block');
-            $('#year-feedback--sportSell').text("Please give valid year");
+            $('#year-feedback--sportSell').text("Please give suitable year we don't accept to old items");
             $(this).css('box-shadow', '0px 0px 5px red');
             $(this).css('border', '2px solid red');
         } else {
@@ -343,7 +343,6 @@ $(function () {
 })
 
 // Recycle validator
-
 $(function() {
     var quantity = $('.recycle #quantity');
     var address = $('.recycle #address');
@@ -358,9 +357,9 @@ $(function() {
     })
     
     quantity.blur(function () {
-        if (quantity.val().trim() === "") {
+        if (quantity.val().trim() === "" || quantity.val() < 20) {
             $('#quantity-feedback--recycle').addClass('d-block');
-            $('#quantity-feedback--recycle').text("Please give quantity");
+            $('#quantity-feedback--recycle').text("Please give quantity greater than 20kg");
             $(this).css('box-shadow', '0px 0px 5px red');
             $(this).css('border', '2px solid red');
         } else {
@@ -371,7 +370,7 @@ $(function() {
     })
 
     address.blur(function () {
-        if (address.val().trim() === "") {
+        if (address.val().trim() === "" || address.val().length < 5) {
             $('#address-feedback--recycle').addClass('d-block');
             $('#address-feedback--recycle').text("Please give address");
             $(this).css('box-shadow', '0px 0px 5px red');
@@ -384,9 +383,9 @@ $(function() {
     })
 
     contact.blur(function () {
-        if (contact.val().trim() === "") {
+        if (contact.val().trim() === "" || contact.val().length !== 10) {
             $('#contact-feedback--recycle').addClass('d-block');
-            $('#contact-feedback--recycle').text("Please give contact");
+            $('#contact-feedback--recycle').text("Please give valid contact");
             $(this).css('box-shadow', '0px 0px 5px red');
             $(this).css('border', '2px solid red');
         } else {

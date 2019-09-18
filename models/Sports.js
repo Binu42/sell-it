@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Sport schema
 const sportSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,

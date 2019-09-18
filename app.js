@@ -11,9 +11,9 @@ const cloudinary = require('cloudinary');
 const bcrypt = require('bcryptjs');
 const methodOverride = require('method-override');
 
-
 const app = express();
 
+// routing and connection to database and image uploader file requiring
 const book = require('./routes/books');
 const sport = require('./routes/sports');
 const connectDB = require('./config/connect');
@@ -22,19 +22,26 @@ const {
     ensureAuthenticated
 } = require('./helper/auth');
 require('./handlers/cloudinary');
+
+// connection to database
 connectDB();
 
+// BookSchema
 require('./models/Books');
 const Book = mongoose.model('books');
 
+// SportSchema
 require('./models/Sports');
 const Sport = mongoose.model('sports');
 
-
+// UserSchema
 require('./models/Users');
 const User = mongoose.model('users');
+
+// passport file (serializer, deserializer and password comparisions)
 require('./config/passport')(passport);
 
+// helper functions
 const {search, formatDate, Icon, select} = require('./helper/hbs');
 
 // To save session as cookies
@@ -63,7 +70,7 @@ app.use(function (req, res, next) {
 // override with POST having ?_method=DELETE
 app.use(methodOverride('_method'))
 
-// Middleware
+// Middleware handlebars
 app.engine('handlebars', exphbs({
     helpers: {
         search: search,
@@ -74,24 +81,39 @@ app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
+
+// to use static files
 app.use(express.static('public'));
 
+// for accessing sended inputs
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// @Access  public
+// @route   get /
+// @desc    get landing page
 app.get('/', (req, res) => {
     res.render('index/index');
 });
 
+// @Access  public
+// @route   get /login
+// @desc    get login page for users
 app.get('/login', (req, res) => {
     res.render('users/login');
 });
 
+// @Access  public
+// @route   get /register
+// @desc    get register page for newusers
 app.get('/register', (req, res) => {
     res.render('users/register');
 });
 
+// @Access  public
+// @route   post /register
+// @desc    register users
 app.post('/register', upload.single('profile_pic'), (req, res) => {
     User.findOne({
             email: req.body.email
@@ -137,7 +159,9 @@ app.post('/register', upload.single('profile_pic'), (req, res) => {
         })
 });
 
-// route for login of user
+// @Access  public
+// @route   post /login
+// @desc    finding of user and matching password using passport
 app.post('/login', function (req, res, next) {
     passport.authenticate('local', {
         successRedirect: '/',
@@ -146,6 +170,9 @@ app.post('/login', function (req, res, next) {
     })(req, res, next);
 })
 
+// @Access  private
+// @route   get /cart
+// @desc    details of what you selled
 app.get('/cart', ensureAuthenticated, (req, res)=> {
     Book.find({user: req.user.id})
     .then(books => {
@@ -156,6 +183,9 @@ app.get('/cart', ensureAuthenticated, (req, res)=> {
     })
 })
 
+// @Access  private
+// @route   get /profile
+// @desc    loggedIn user details
 app.get('/profile', ensureAuthenticated, (req, res) => {
     User.find({_id: req.user.id})
     .then(user => {
@@ -163,16 +193,20 @@ app.get('/profile', ensureAuthenticated, (req, res) => {
     })
 })
 
-// route for logout of user
+// @Access  private
+// @route   get /logout
+// @desc    logout user
 app.get('/logout', ensureAuthenticated, (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
     res.redirect('/login');
 })
 
+// all routes starting with /books or /sports will redirected
 app.use('/books', book);
 app.use('/sports', sport);
 
+// app listening address
 const port = process.env.PORT || 4000;
 app.listen(port, (req, res) => {
     console.log(`Server is Running at ${port}`);

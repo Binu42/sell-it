@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Recycle schema
 const recycleSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,

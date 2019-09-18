@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const keys = require('./keys');
 
+// connecting to database
 const connectDB = () => {
 
     mongoose.connect(keys.mongoDBURI, {

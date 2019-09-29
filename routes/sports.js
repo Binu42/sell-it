@@ -180,6 +180,14 @@ router.delete('/:id', ensureAuthenticated, (req, res) => {
         })
         .then(item => {
             if (item.user.toString() === req.user.id.toString()) {
+                const name = item.image.substr(62).slice(0, -4);
+                cloudinary.v2.uploader.destroy(name, (error, result) => {
+                    if(!error){
+                        console.log(result);
+                    }else{
+                        console.log(error);
+                    }
+                });
                 item.remove()
                     .then(item => {
                         req.flash('success_msg', "Sport Item is Removed");

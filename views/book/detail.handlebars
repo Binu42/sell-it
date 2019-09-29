@@ -3,18 +3,19 @@
         <div class="col-md-3">
             <img src="{{item.image}}" class="img-fluid">
             {{#if (Icon user.id item.user.id)}}
-            <div class="mt-2">
-                <a class="btn btn-info d-inline" href="/books/edit/{{item.id}}"><i class="fa fa-pen"
-                        aria-hidden="true"></i> Edit</a>
+            <div class="mt-2 ml-4">
+                <a class="btn btn-info" href="/books/edit/{{item.id}}"><i class="fa fa-pen"
+                        aria-hidden="true"></i>&emsp;Edit</a>
                 <form action="/books/{{item.id}}?_method=DELETE" method="post" class="d-inline">
                     <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</button>
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>&emsp;Delete</button>
                 </form>
             </div>
             {{/if}}
         </div>
         <div class="col-md-6 text-white">
             <h3>{{item.name}}</h3>
+            <h5>{{item.author}}</h5>
             <h4>{{item.company}}</h4>
             <h5 class="ml-2 text-success">₹ {{item.price}}</h5>
             <h5>{{item.description}}</h5>
@@ -42,7 +43,7 @@
                     <div class="form-groupt">
                         <label for="comments" class="h5">Comment</label>
                         <textarea name="comment" id="comments" class="form-control"
-                            placeholder="Type Your comments here"></textarea>
+                            placeholder="Type Your comments here" required></textarea>
                     </div>
                     <button type="submit" class="mt-2 btn btn-success">Submit</button>
                 </form>

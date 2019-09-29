@@ -2,7 +2,6 @@
 $(function () {
     var password = $('.login-form #password');
     var email = $('.login-form #email');
-    console.log(password.val());
     $('.login-form').submit(function (event) {
         if (password.val().trim() === "" || email.val().trim() === "") {
             event.preventDefault();

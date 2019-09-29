@@ -166,7 +166,7 @@ router.get('/comments/:bookId/:commentId', ensureAuthenticated, (req, res) => {
                             req.flash('success_msg', 'Your Comment deleted !');
                             res.redirect('/books/' + req.params.bookId);
                         })
-                }else {
+                } else {
                     req.flash('error_msg', 'you are not authorised');
                     res.redirect('/books/' + req.params.bookId);
                 }
@@ -213,6 +213,14 @@ router.delete('/:id', ensureAuthenticated, (req, res) => {
         })
         .then(book => {
             if (book.user.toString() === req.user.id.toString()) {
+                const name = book.image.substr(62).slice(0, -4);
+                cloudinary.v2.uploader.destroy(name, (error, result) => {
+                    if(!error){
+                        console.log(result);
+                    }else{
+                        console.log(error);
+                    }
+                });
                 book.remove();
                 req.flash('success_msg', "Book is Removed");
                 res.redirect('/books/buy');

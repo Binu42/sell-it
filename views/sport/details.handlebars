@@ -17,6 +17,7 @@
             <h3>{{item.name}}</h3>
             <h4>{{item.author}}</h4>
             <h5 class="ml-2 text-success">₹ {{item.price}}</h5>
+            <h5>{{item.company}}</h5>
             <h5>{{item.description}}</h5>
         </div>
         <div class="col-md-3">
@@ -42,7 +43,7 @@
                     <div class="form-groupt">
                         <label for="comments" class="h5">Comment</label>
                         <textarea name="comment" id="comments" class="form-control"
-                            placeholder="Type Your comments here"></textarea>
+                            placeholder="Type Your comments here" required></textarea>
                     </div>
                     <button type="submit" class="mt-2 btn btn-success">Submit</button>
                 </form>

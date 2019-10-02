@@ -111,6 +111,10 @@ app.get('/register', (req, res) => {
     res.render('users/register');
 });
 
+app.get('/forgot', (req, res)=> {
+    res.render('users/secret');
+})
+
 // @Access  public
 // @route   post /register
 // @desc    register users

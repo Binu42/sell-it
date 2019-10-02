@@ -42,7 +42,12 @@ const User = mongoose.model('users');
 require('./config/passport')(passport);
 
 // helper functions
-const {search, formatDate, Icon, select} = require('./helper/hbs');
+const {
+    search,
+    formatDate,
+    Icon,
+    select
+} = require('./helper/hbs');
 
 // To save session as cookies
 app.use(session({
@@ -111,7 +116,7 @@ app.get('/register', (req, res) => {
     res.render('users/register');
 });
 
-app.get('/forgot', (req, res)=> {
+app.get('/forgot', (req, res) => {
     res.render('users/secret');
 })
 
@@ -140,7 +145,8 @@ app.post('/register', upload.single('profile_pic'), (req, res) => {
                     address: req.body.location,
                     contact: req.body.mobileno,
                     profile: result.secure_url,
-                    password: req.body.password
+                    password: req.body.password,
+                    secret: req.body.secret
                 });
                 bcrypt.genSalt(10, (error, salt) => {
                     bcrypt.hash(newUser.password, salt, (error, hash) => {
@@ -163,6 +169,47 @@ app.post('/register', upload.single('profile_pic'), (req, res) => {
         })
 });
 
+app.post('/forgot', (req, res) => {
+    User.findOne({
+            email: req.body.email
+        })
+        .then(user => {
+            if (user.secret === req.body.secret) {
+                res.render('users/changepassword', {
+                    id: user.id
+                });
+            } else {
+                req.flash('error_msg', 'Invalid email or Secret Code');
+                res.redirect('/forgot');
+            }
+        })
+});
+
+app.put('/:id/changepassword', (req, res) => {
+    User.findOne({
+            _id: req.params.id
+        })
+        .then(user => {
+            bcrypt.genSalt(10, (error, salt) => {
+                bcrypt.hash(req.body.password, salt, (error, hash) => {
+                    if (error) throw error;
+                    else {
+                        user.password = hash;
+                        user.save()
+                            .then(user => {
+                                req.flash('success_msg', "Password Changed Successfullly!");
+                                res.redirect('/login');
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                return;
+                            })
+                    }
+                })
+            })
+        })
+})
+
 // @Access  public
 // @route   post /login
 // @desc    finding of user and matching password using passport
@@ -177,24 +224,46 @@ app.post('/login', function (req, res, next) {
 // @Access  private
 // @route   get /cart
 // @desc    details of what you selled
-app.get('/cart', ensureAuthenticated, (req, res)=> {
-    Book.find({user: req.user.id})
-    .then(books => {
-        Sport.find({user: req.user.id})
-        .then(sports => {
-            res.render('index/cart', {books: books, sports: sports});
+app.get('/cart', ensureAuthenticated, (req, res) => {
+    Book.find({
+            user: req.user.id
         })
-    })
+        .then(books => {
+            Sport.find({
+                    user: req.user.id
+                })
+                .then(sports => {
+                    res.render('index/cart', {
+                        books: books,
+                        sports: sports
+                    });
+                })
+        })
 })
 
 // @Access  private
 // @route   get /profile
 // @desc    loggedIn user details
 app.get('/profile', ensureAuthenticated, (req, res) => {
-    User.find({_id: req.user.id})
-    .then(user => {
-        res.render('index/profile', {user: user});
-    })
+    User.findOne({
+            _id: req.user.id
+        })
+        .then(user => {
+            res.render('index/profile', {
+                user: user
+            });
+        })
+})
+
+app.get('/:id/profile', ensureAuthenticated, (req, res) => {
+    User.findOne({
+            _id: req.params.id
+        })
+        .then(user => {
+            res.render('index/profile', {
+                user: user
+            });
+        })
 })
 
 // @Access  private

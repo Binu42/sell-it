@@ -30,6 +30,18 @@
     {{>_flash}}
     {{>_error}}
     {{{body}}}
+    {{#if user}}
+    <script type="text/javascript">
+      var _smartsupp = _smartsupp || {};
+      _smartsupp.key = '97b6e44a66272423823269ef82a4d47ad91d5047';
+      window.smartsupp || (function (d) {
+        var s, c, o = smartsupp = function () { o._.push(arguments) }; o._ = [];
+        s = d.getElementsByTagName('script')[0]; c = d.createElement('script');
+        c.type = 'text/javascript'; c.charset = 'utf-8'; c.async = true;
+        c.src = 'https://www.smartsuppchat.com/loader.js?'; s.parentNode.insertBefore(c, s);
+      })(document);
+    </script>
+    {{/if}}
   </div>
   {{>_footer}}
   <!-- Optional JavaScript -->
@@ -54,6 +66,7 @@
       slideToScroll: 1
     });
   </script>
+  <!-- Smartsupp Live Chat script -->
 </body>
 
 </html>

@@ -26,6 +26,10 @@ const userSchema = new Schema({
     contact: {
         type: String,
         required: true
+    },
+    secret: {
+        type: String,
+        required: true
     }
 });
 

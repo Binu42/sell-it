@@ -32,6 +32,10 @@ body {
     color: #1eff00 !important;
 }
 
+.navbar-nav .dropdown-menu .dropdown-item:hover{
+    color: crimson;
+}
+
 .nav-link {
     font-weight: bold;
 }

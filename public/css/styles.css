@@ -172,6 +172,10 @@ h1 {
     margin-top: -60px;
 }
 
+iframe ._38MtcaH-{
+    display: none !important;
+}
+
 .rgba-black-light,
 .rgba-black-light:after {
     background-color: rgba(0, 0, 0, .3);

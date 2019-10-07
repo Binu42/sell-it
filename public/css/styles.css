@@ -106,7 +106,6 @@ input:hover {
 .animation svg {
     position: absolute;
     top: 10px;
-    clip-path: circle(67.5% at 50% 50%);
 }
 
 .parallax>use {
@@ -138,23 +137,9 @@ input:hover {
     animation-duration: 18s;
 }
 
-.parallax>use:nth-child(6) {
-    animation-delay: -2s;
-    animation-duration: 30s;
-}
-
-.parallax>use:nth-child(7) {
-    animation-delay: -5s;
-    animation-duration: 5s;
-}
-
 @keyframes move-forever {
     0% {
         transform: translate3d(-90px, 0, 0);
-    }
-
-    50% {
-        transform: translate3d(50px, 10px, 0);
     }
 
     100% {
@@ -210,6 +195,10 @@ h1 {
 
 .book-img {
     width: 100%;
+}
+
+.panel-footer .brand{
+    display: none;
 }
 
 /* Dropdown hoverable */

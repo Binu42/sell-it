@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-6 m-auto">
                     <form action="/books/search" method="post">
-                    <label for="section" class="h2 text-success">Sort</label>
+                        <label for="section" class="h2 text-success">Sort</label>
                         <select class="custom-select mb-2" name="section" class="fieldRequired" id="section">
                             {{#select value}}
                             <option selected value="x" disabled>Choose Branch</option>
@@ -26,7 +26,7 @@
         </div>
         {{#each books}}
         <div class="col-md-4 col-lg-3 mt-4">
-            <div class="card">
+            <div id="book-card" class="card">
                 {{#if (Icon ../user.id user)}}
                 <div class="card-header">
                     <div class="d-inline float-right">
@@ -40,10 +40,12 @@
                     </div>
                 </div>
                 {{/if}}
-                <div class="card-text text-center text-dark">
+                <div id="book-image" class="card-text">
                     <a href="/books/{{id}}">
-                        <img src="{{image}}" width="300" class="img-fluid book-img">
+                        <img src="{{image}}" class="img-fluid book-img">
                     </a>
+                </div>
+                <div class="card-body text-center text-dark">
                     <p class="h4 text-danger">{{name}}</p>
                     <p class="h5">{{author}}</p>
                     <p class="text-success">₹ {{price}}</p>

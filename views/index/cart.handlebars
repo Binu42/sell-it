@@ -5,7 +5,7 @@
     <div class="row">
         {{#each books}}
         <div class="col-md-4 col-lg-3 mt-4">
-            <div class="card">
+            <div id="book-card" class="card">
                 {{#if (Icon ../user.id user)}}
                 <div class="card-header">
                     <div class="d-inline float-right">
@@ -19,10 +19,12 @@
                     </div>
                 </div>
                 {{/if}}
-                <div class="card-text text-center text-dark">
+                <div id="book-image">
                     <a href="/books/{{id}}">
                         <img src="{{image}}" width="300" class="img-fluid book-img">
                     </a>
+                </div>
+                <div class="card-text text-center text-dark">
                     <p class="h4 text-danger">{{name}}</p>
                     <p class="h5">{{author}}</p>
                     <p class="text-success">₹ {{price}}</p>
@@ -43,7 +45,7 @@
     <div class="row">
         {{#each sports}}
         <div class="col-md-4 col-lg-3 mt-4">
-            <div class="card">
+            <div id="sport-card" class="card">
                 {{#if (Icon ../user.id user)}}
                 <div class="card-header">
                     <div class="d-inline float-right">
@@ -57,10 +59,12 @@
                     </div>
                 </div>
                 {{/if}}
-                <div class="card-body text-center text-dark">
+                <div id="sport-image">
                     <a href="/sports/{{id}}">
-                        <img src="{{image}}" width="300" class="img-fluid book-img">
+                        <img src="{{image}}" width="300" class="img-fluid sport-img">
                     </a>
+                </div>
+                <div class="card-body text-center text-dark">
                     <p class="h4 text-danger">{{name}}</p>
                     <p class="h5">{{company}}</p>
                     <p class="text-success">₹ {{price}}</p>

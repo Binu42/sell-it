@@ -22,6 +22,8 @@
     integrity="sha256-4hqlsNP9KM6+2eA8VUT0kk4RsMRTeS7QGHIM+MZ5sLY=" crossorigin="anonymous" />
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+  <!-- Magnific Popup core CSS file -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" integrity="sha256-PZLhE6wwMbg4AB3d35ZdBF9HD/dI/y4RazA3iRDurss=" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -51,14 +53,6 @@
         username: {
           label: 'User name ',
           value: "{{user.name}}"
-        },
-        role: {
-          label: 'Customer status',
-          value: 'VIP'
-        },
-        orderedPrice: {
-          label: 'Customer spending',
-          value: '100 EUR'
         }
       });
     </script>
@@ -81,6 +75,8 @@
     integrity="sha256-NXRS8qVcmZ3dOv3LziwznUHPegFhPZ1F/4inU7uC8h0=" crossorigin="anonymous"></script>
   <script src="/js/validator.js"></script>
   <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+  <!-- Magnific Popup core JS file -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" integrity="sha256-P93G0oq6PBPWTP1IR8Mz/0jHHUpaWL0aBJTKauisG7Q=" crossorigin="anonymous"></script>
   <script>
     AOS.init();
     $('.slider').slick({
@@ -89,8 +85,24 @@
       slideToScroll: 1
     });
     CKEDITOR.replace('description');
+    $(document).ready(function () {
+        $('.item-image').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            closeBtnInside: true,
+            fixedContentPos: true,
+            mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+            image: {
+                verticalFit: true
+            },
+            zoom: {
+                enabled: true,
+                duration: 300 // don't foget to change the duration also in CSS
+            }
+        });
+
+    });
   </script>
-  <!-- Smartsupp Live Chat script -->
 </body>
 
 </html>

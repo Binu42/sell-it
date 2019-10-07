@@ -147,6 +147,19 @@ input:hover {
     }
 }
 
+#book-card, #sport-card{
+    height: 600px;
+}
+
+#book-card #book-image, #sport-card #sport-image{
+    height: 300px;
+}
+
+#book-image .book-img, #sport-image .sport-img{
+    height: 100%;
+    background-position: center;
+}
+
 
 h1 {
     padding-top: 50px;

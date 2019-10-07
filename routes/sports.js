@@ -38,12 +38,7 @@ router.get('/buy', ensureAuthenticated, (req, res) => {
 // @route   post /sports/sell
 // @desc    sell sport item
 router.post('/sell', ensureAuthenticated, upload.single('sport_pic'), async (req, res) => {
-    const result = await cloudinary.v2.uploader.upload(req.file.path, {
-        width: 250,
-        height: 250,
-        gravity: "faces",
-        crop: "fill"
-    });
+    const result = await cloudinary.v2.uploader.upload(req.file.path);
     const newSportItem = new Sport({
         user: req.user.id,
         name: req.body.name,

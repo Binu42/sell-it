@@ -43,7 +43,6 @@ require('./config/passport')(passport);
 
 // helper functions
 const {
-    search,
     formatDate,
     Icon,
     select
@@ -78,7 +77,6 @@ app.use(methodOverride('_method'))
 // Middleware handlebars
 app.engine('handlebars', exphbs({
     helpers: {
-        search: search,
         formatDate: formatDate,
         Icon: Icon,
         select: select
@@ -250,7 +248,7 @@ app.get('/profile', ensureAuthenticated, (req, res) => {
         })
         .then(user => {
             res.render('index/profile', {
-                user: user
+                item: user
             });
         })
 })
@@ -261,8 +259,64 @@ app.get('/:id/profile', ensureAuthenticated, (req, res) => {
         })
         .then(user => {
             res.render('index/profile', {
-                user: user
-            });
+                item: user
+            })
+        })
+})
+
+app.get('/profile/edit/:id', ensureAuthenticated, (req, res) => {
+    User.findOne({
+            _id: req.params.id
+        })
+        .then(user => {
+            if (req.user.id == user.id) {
+                res.render('index/profileedit', {
+                    user: user
+                });
+            } else {
+                req.flash('error_msg', 'NOt Allowed!');
+                res.redirect('/');
+            }
+
+        })
+})
+
+app.put('/profile/edit/:id', ensureAuthenticated, upload.single('profile_pic'), (req, res) => {
+    User.findOne({
+            _id: req.params.id
+        })
+        .then(async user => {
+            if (req.user.id === req.params.id) {
+                const name = user.profile.substr(62).slice(0, -4);
+                cloudinary.v2.uploader.destroy(name, (error, result) => {
+                    if(!error){
+                        console.log(result);
+                    }else{
+                        console.log(error);
+                    }
+                });
+
+                // uploading image uploaded to cloud
+                const result = await cloudinary.v2.uploader.upload(req.file.path, {
+                    width: 250,
+                    height: 250,
+                    gravity: "faces",
+                    crop: "fill"
+                });
+                user.name = req.body.name
+                user.address = req.body.location
+                user.contact = req.body.mobileno
+                user.profile = result.secure_url
+
+                user.save()
+                    .then(() => {
+                        req.flash('success_msg', "Profile updated");
+                        res.redirect('/profile');
+                    })
+            }else{
+                req.flash('error_msg', "Not allowed");
+                res.redirect('/');
+            }
         })
 })
 

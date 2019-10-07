@@ -54,12 +54,7 @@ router.get('/recycle', ensureAuthenticated, (req, res) => {
 // @route   post /books/sell
 // @desc    adding books item to collection
 router.post('/sell', ensureAuthenticated, upload.single('book_pic'), async (req, res) => {
-    const result = await cloudinary.v2.uploader.upload(req.file.path, {
-        width: 250,
-        height: 250,
-        gravity: "faces",
-        crop: "fill"
-    })
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
     const newBook = new Book({
         user: req.user.id,
         name: req.body.name,

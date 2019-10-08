@@ -220,7 +220,11 @@ iframe ._38MtcaH-{
 
 /* Dropdown hoverable */
 @media(min-width: 50rem) {
-    .dropdown:hover .dropdown-menu {
+    .dropdown:hover .first {
+        display: block;
+    }
+
+    .dropdown-submenu:hover .second{
         display: block;
     }
 }
@@ -235,4 +239,16 @@ iframe ._38MtcaH-{
     .data{
         margin-top: 8px;
     }
+}
+
+/* 
+    multiple-menu
+*/
+.dropdown-submenu{
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu{
+    top: 0;
+    left: 178px;
 }

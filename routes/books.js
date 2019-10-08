@@ -1,7 +1,6 @@
 // dependencies
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require("body-parser");
 const cloudinary = require('cloudinary');
 const router = express.Router();
 
@@ -10,6 +9,7 @@ require('../models/Books');
 const Book = mongoose.model('books');
 require('../models/Recycle');
 const Recycle = mongoose.model('recycles');
+
 // upload of image
 const upload = require('../handlers/multer');
 // authenticated or not checking
@@ -35,13 +35,6 @@ router.get('/buy', ensureAuthenticated, (req, res) => {
             });
         })
 })
-
-// @Access  private
-// @route   get /books/rental
-// @desc    for taking books on rental basis
-router.get('/rental', ensureAuthenticated, (req, res) => {
-    res.render('book/rental');
-});
 
 // @Access  private
 // @route   get /books/recycle

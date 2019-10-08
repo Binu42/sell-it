@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark text-white fixed-top">
-  <a class="navbar-brand text-white" href="/"><img src="/img/logo.png" alt="" class="img-fluid rounded-circle" width="30">&emsp;STUDENT CART</a>
+  <a class="navbar-brand text-white" href="/"><img src="/img/logo.png" alt="" class="img-fluid rounded-circle"
+      width="30">&emsp;STUDENT CART</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -18,20 +19,30 @@
           aria-haspopup="true" aria-expanded="false">
           Books
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/books/sell">Sell Books</a>
-          <a class="dropdown-item" href="/books/buy">Buy Books</a>
-          <a href="/books/rental" class="dropdown-item">Rental Books</a>
+        <ul class="dropdown-menu first" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="/books/sell">Sell Books</a></li>
+          <li><a class="dropdown-item" href="/books/buy">Buy Books</a></li>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/books/recycle">Sell Recycle Items</a>
-        </div>
+          <li><a class="dropdown-item" href="/books/recycle">Sell Recycle Items</a></li>
+          <li class="dropdown-item dropdown-submenu">
+            <a class="nav-link font-weight-light test dropdown-toggle text-dark" href="#" id="navbarDropdown2" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Rental
+            </a>
+            <ul class="dropdown-menu second" aria-labelledby="navbarDropdown2">
+              <li><a class="dropdown-item" href="/rental/give">Give</a></li>
+              <li><a class="dropdown-item" href="/rental/take">Take</a></li>
+            </ul>
+          </li>
+        </ul>
       </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-white" href="#" id="sports" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Sports
         </a>
-        <div class="dropdown-menu" aria-labelledby="sports">
+        <div class="dropdown-menu first" aria-labelledby="sports">
           <a class="dropdown-item" href="/sports/sell">Sell Sports</a>
           <a class="dropdown-item" href="/sports/buy">Buy Sports</a>
         </div>

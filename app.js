@@ -16,6 +16,7 @@ const app = express();
 // routing and connection to database and image uploader file requiring
 const book = require('./routes/books');
 const sport = require('./routes/sports');
+const rental = require('./routes/rentalbooks');
 const connectDB = require('./config/connect');
 const upload = require('./handlers/multer');
 const {
@@ -37,6 +38,10 @@ const Sport = mongoose.model('sports');
 // UserSchema
 require('./models/Users');
 const User = mongoose.model('users');
+
+// UserSchema
+require('./models/Rental');
+const Rental = mongoose.model('rentals');
 
 // passport file (serializer, deserializer and password comparisions)
 require('./config/passport')(passport);
@@ -231,10 +236,16 @@ app.get('/cart', ensureAuthenticated, (req, res) => {
                     user: req.user.id
                 })
                 .then(sports => {
-                    res.render('index/cart', {
-                        books: books,
-                        sports: sports
-                    });
+                    Rental.find({
+                            user: req.user.id
+                        })
+                        .then(rental => {
+                            res.render('index/cart', {
+                                books: books,
+                                sports: sports,
+                                rental: rental
+                            });
+                        })
                 })
         })
 })
@@ -289,9 +300,9 @@ app.put('/profile/edit/:id', ensureAuthenticated, upload.single('profile_pic'), 
             if (req.user.id === req.params.id) {
                 const name = user.profile.substr(62).slice(0, -4);
                 cloudinary.v2.uploader.destroy(name, (error, result) => {
-                    if(!error){
+                    if (!error) {
                         console.log(result);
-                    }else{
+                    } else {
                         console.log(error);
                     }
                 });
@@ -313,7 +324,7 @@ app.put('/profile/edit/:id', ensureAuthenticated, upload.single('profile_pic'), 
                         req.flash('success_msg', "Profile updated");
                         res.redirect('/profile');
                     })
-            }else{
+            } else {
                 req.flash('error_msg', "Not allowed");
                 res.redirect('/');
             }
@@ -332,6 +343,7 @@ app.get('/logout', ensureAuthenticated, (req, res) => {
 // all routes starting with /books or /sports will redirected
 app.use('/books', book);
 app.use('/sports', sport);
+app.use('/rental', rental);
 
 // app listening address
 const port = process.env.PORT || 4000;

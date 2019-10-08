@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-// Sport schema
-const sportSchema = new mongoose.Schema({
+// Rental Schema
+const rentalSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
@@ -10,12 +10,12 @@ const sportSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    company: {
+    author: {
         type: String,
         required: true
     },
-    used: {
-        type: Number,
+    section: {
+        type: String,
         required: true
     },
     comments: [{
@@ -42,7 +42,11 @@ const sportSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true
+    },
+    address: {
+        type: String
     }
 })
 
-mongoose.model('sports', sportSchema);
+
+mongoose.model('rentals', rentalSchema);

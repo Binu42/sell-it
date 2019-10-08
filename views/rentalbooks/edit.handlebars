@@ -1,0 +1,56 @@
+<form action="/rental/{{book.id}}?_method=PUT" method="post">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-10 m-auto">
+                <div class="card">
+                    <div class="card-header font-weight-bold text-center">
+                        Book Details
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="name">Book Name</label>
+                            <input type="text" id="name" name="name" class="form-control" value="{{book.name}}"
+                                placeholder="Enter the book name">
+                        </div>
+                        <div class="form-group">
+                            <label for="authname">Author and Edition of Book</label>
+                            <input type="text" id="authname" name="authname" class="form-control"
+                                value="{{book.author}}" placeholder="Enter the book name">
+                        </div>
+                        <label for="section">Choose Branch of Book</label>
+                        <select class="custom-select mb-2" name="section" class="fieldRequired" id="section">
+                            {{#select book.section}}
+                            <option selected value="x" disabled>Choose Branch</option>
+                            <option value="C.S.E">C.S.E</option>
+                            <option value="I.S.E">I.S.E</option>
+                            <option value="Mech">Mech</option>
+                            <option value="Civil">Civil</option>
+                            <option value="E.C.E">E.C.E</option>
+                            <option value="E.E.E">E.E.E</option>
+                            <option value="C.T.M">C.T.M</option>
+                            <option value="Marine">Marine</option>
+                            {{/select}}
+                        </select>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" name="description" id="description"
+                                placeholder="Enter a Brief Description about Book">{{book.description}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" name="price" placeholder="Price you charge for it."
+                                value="{{book.price}}" class="form-control">
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-sm-6">
+                                <input type="submit" value="Submit" class="btn btn-success mb-4 btn-block"
+                                    id="submit-button">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

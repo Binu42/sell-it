@@ -172,11 +172,11 @@ $(function () {
     var name = $('.book-Sell #name');
     var authname = $('.book-Sell #authname');
     var image = $('.book-Sell #uploadPic');
-    var description = $('.book-Sell #description');
+    // var description = $('.book-Sell #description');
     var price = $('.book-Sell #price');
 
-    $('.book-Sell').submit(function(event){
-        if(name.val().trim() === "" || authname.val().trim() === "" || image.val() === "" || description.val().trim() === "" || price.val().trim() === ""){
+    $('.book-Sell').submit(function (event) {
+        if (name.val().trim() === "" || authname.val().trim() === "" || image.val() === "" || price.val().trim() === "") {
             event.preventDefault();
         }
     })
@@ -220,18 +220,18 @@ $(function () {
         }
     })
 
-    description.blur(function () {
-        if (description.val().trim().length < 5) {
-            $('#description-feedback--bookSell').addClass('d-block');
-            $('#description-feedback--bookSell').text("Please give description");
-            $(this).css('box-shadow', '0px 0px 5px red');
-            $(this).css('border', '2px solid red');
-        } else {
-            $('#description-feedback--bookSell').removeClass('d-block');
-            $(this).css('box-shadow', '0px 0px 5px green');
-            $(this).css('border', '1px solid lightgreen');
-        }
-    })
+    // description.blur(function () {
+    //     if (description.val().trim().length < 5) {
+    //         $('#description-feedback--bookSell').addClass('d-block');
+    //         $('#description-feedback--bookSell').text("Please give description");
+    //         $(this).css('box-shadow', '0px 0px 5px red');
+    //         $(this).css('border', '2px solid red');
+    //     } else {
+    //         $('#description-feedback--bookSell').removeClass('d-block');
+    //         $(this).css('box-shadow', '0px 0px 5px green');
+    //         $(this).css('border', '1px solid lightgreen');
+    //     }
+    // })
 
     price.blur(function () {
         if (price.val().trim() === "") {
@@ -256,8 +256,8 @@ $(function () {
     var description = $('.sport-Sell #description');
     var price = $('.sport-Sell #price');
 
-    $('.sport-Sell').submit(function(event){
-        if(name.val().trim() === "" || company.val().trim() === "" || image.val() === "" || description.val().trim() === "" || price.val().trim() === "" || year.val() === ""){
+    $('.sport-Sell').submit(function (event) {
+        if (name.val().trim() === "" || company.val().trim() === "" || image.val() === "" || price.val().trim() === "" || year.val() === "") {
             event.preventDefault();
         }
     })
@@ -314,18 +314,18 @@ $(function () {
         }
     })
 
-    description.blur(function () {
-        if (description.val().trim().length < 10) {
-            $('#description-feedback--sportSell').addClass('d-block');
-            $('#description-feedback--sportSell').text("Please give description");
-            $(this).css('box-shadow', '0px 0px 5px red');
-            $(this).css('border', '2px solid red');
-        } else {
-            $('#description-feedback--sportSell').removeClass('d-block');
-            $(this).css('box-shadow', '0px 0px 5px green');
-            $(this).css('border', '1px solid lightgreen');
-        }
-    })
+    // description.blur(function () {
+    //     if (description.val().trim().length < 10) {
+    //         $('#description-feedback--sportSell').addClass('d-block');
+    //         $('#description-feedback--sportSell').text("Please give description");
+    //         $(this).css('box-shadow', '0px 0px 5px red');
+    //         $(this).css('border', '2px solid red');
+    //     } else {
+    //         $('#description-feedback--sportSell').removeClass('d-block');
+    //         $(this).css('box-shadow', '0px 0px 5px green');
+    //         $(this).css('border', '1px solid lightgreen');
+    //     }
+    // })
 
     price.blur(function () {
         if (price.val().trim() === "") {
@@ -342,19 +342,19 @@ $(function () {
 })
 
 // Recycle validator
-$(function() {
+$(function () {
     var quantity = $('.recycle #quantity');
     var address = $('.recycle #address');
     var contact = $('.recycle #contact');
     var time = $('.recycle #time');
     var date = $('.recycle #date');
 
-    $('.recycle').submit(function(event){
-        if(quantity.val() < 20 || address.val().trim() === "" || contact.val().length === 10){
+    $('.recycle').submit(function (event) {
+        if (quantity.val() < 20 || address.val().trim() === "" || contact.val().length === 10) {
             event.preventDefault();
         }
     })
-    
+
     quantity.blur(function () {
         if (quantity.val().trim() === "" || quantity.val() < 20) {
             $('#quantity-feedback--recycle').addClass('d-block');
@@ -419,4 +419,15 @@ $(function() {
             $(this).css('border', '1px solid lightgreen');
         }
     })
+})
+
+
+// submenu 
+
+$(function () {
+    $('.dropdown-submenu a.test').on("click", function (e) {
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+    });
 })

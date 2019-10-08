@@ -78,4 +78,45 @@
         </div>
         {{/each}}
     </div>
+    <hr>
+    
+    <div class="mt-5">
+        <h4 class="text-center text-white display-4 text-uppercase text-success"><u>Rental Items</u></h4>
+    </div>
+    <div class="row">
+        {{#each rental}}
+        <div class="col-md-4 col-lg-3 mt-4">
+            <div id="book-card" class="card">
+                {{#if (Icon ../user.id user)}}
+                <div class="card-header">
+                    <div class="d-inline float-right">
+                        <form action="/rental/{{id}}?_method=DELETE" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </div>
+                    <div class="d-inline float-left">
+                        <a href="/rental/edit/{{id}}" class="btn btn-info"><i class="fa fa-pen"></i></a>
+                    </div>
+                </div>
+                {{/if}}
+                <div id="book-image">
+                    <a href="/rental/{{id}}">
+                        <img src="{{image}}" width="300" class="img-fluid book-img">
+                    </a>
+                </div>
+                <div class="card-text text-center text-dark">
+                    <p class="h4 text-danger">{{name}}</p>
+                    <p class="h5">{{author}}</p>
+                    <p class="text-success">₹ {{price}}</p>
+                    <a href="/rental/{{id}}" class="btn btn-outline-success">More info</a>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <div class="col-md-10 m-auto">
+            <h4 class="text-info text-center mt-4">NO Books Found (- , -)</h4>
+        </div>
+        {{/each}}
+    </div>
 </div>

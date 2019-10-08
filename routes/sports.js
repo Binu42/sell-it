@@ -234,7 +234,7 @@ router.post('/search', ensureAuthenticated, (req, res) => {
     Sport.find({})
         .then(sports => {
             for (let i = 0; i < sports.length; i++) {
-                if (sports[i].name.toLowerCase().includes(req.body.search)) {
+                if (sports[i].name.toLowerCase().includes(req.body.search.toLowerCase())) {
                     searchedItem.push(sports[i]);
                 }
             }

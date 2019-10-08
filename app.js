@@ -39,7 +39,7 @@ const Sport = mongoose.model('sports');
 require('./models/Users');
 const User = mongoose.model('users');
 
-// UserSchema
+// RentalSchema
 require('./models/Rental');
 const Rental = mongoose.model('rentals');
 

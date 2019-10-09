@@ -4,16 +4,21 @@
             <a class="item-image" href="{{item.image}}">
                 <img src="{{item.image}}" class="img-fluid">
             </a>
-            {{#if (Icon user.id item.user.id)}}
-            <div class="mt-2 ml-4">
-                <a class="btn btn-info" href="/books/edit/{{item.id}}"><i class="fa fa-pen"
-                        aria-hidden="true"></i>&emsp;Edit</a>
-                <form action="/books/{{item.id}}?_method=DELETE" method="post" class="d-inline">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>&emsp;Delete</button>
-                </form>
+            <div class="row">
+                <div class="col-md-8 offset-2">
+                    {{#if (Icon user.id item.user.id)}}
+                    <div class="mt-2">
+                        <a class="btn btn-info" href="/books/edit/{{item.id}}"><i class="fa fa-pen"
+                                aria-hidden="true"></i>&emsp;Edit</a>
+                        <form action="/books/{{item.id}}?_method=DELETE" method="post" class="d-inline">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger"><i
+                                    class="fa fa-trash"></i>&emsp;Delete</button>
+                        </form>
+                    </div>
+                    {{/if}}
+                </div>
             </div>
-            {{/if}}
         </div>
         <div class="col-md-6 text-white">
             <h3>{{item.name}}</h3>
@@ -59,8 +64,8 @@
                     <div class="card mt-2">
                         <div class="card-header bg-info">
                             <a href="/{{commentUser.id}}/profile">
-                                <img src="{{commentUser.profile}}"
-                                    class="img-fluid rounded-circle d-inline mx-2" width="70">
+                                <img src="{{commentUser.profile}}" class="img-fluid rounded-circle d-inline mx-2"
+                                    width="70">
                             </a>
                             <p class="d-inline">{{commentUser.name}}</p>
                             {{#if (Icon ../user.id commentUser.id)}}

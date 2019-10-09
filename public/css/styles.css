@@ -147,12 +147,16 @@ input:hover {
     }
 }
 
-#book-card, #sport-card{
+#book-card, #sport-card, #rental-book-card{
     height: 600px;
 }
 
-#book-card #book-image, #sport-card #sport-image{
+#book-card #book-image{
     height: 300px;
+}
+
+#sport-card #sport-image, #rental-book-card #book-image{
+    height: 350px;
 }
 
 #book-image .book-img, #sport-image .sport-img{
@@ -227,6 +231,10 @@ iframe ._38MtcaH-{
     .dropdown-submenu:hover .second{
         display: block;
     }
+
+    .view{
+        height: 500px;
+    }
 }
 
 @media(max-width: 40rem) {
@@ -258,5 +266,28 @@ iframe ._38MtcaH-{
 */
 
 .text-custom{
-    color: #24ff10;
+    color: #ffab10;
+}
+
+.text-name{
+    color: #51dacf;
+}
+
+.col-md-4, .col-lg-3{
+    padding: 0;
+    padding-left: 10px;
+}
+
+#book-card .header, #sport-card .header, #rental-book-card{
+    position: relative;
+}
+
+#book-card .header .delete, #sport-card .header .delete, #rental-book-card .delete{
+    position: absolute;
+    right: 0;
+}
+
+#book-card .header .edit, #sport-card .header .edit, #rental-book-card .edit{
+    position: absolute;
+    left: 0;
 }

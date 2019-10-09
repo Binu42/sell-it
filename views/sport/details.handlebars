@@ -4,16 +4,20 @@
             <a href="{{item.image}}" class="item-image">
                 <img src="{{item.image}}" class="img-fluid">
             </a>
-            {{#if (Icon user.id item.user.id)}}
-            <div class="mt-2">
-                <a class="btn btn-info d-inline" href="/sports/edit/{{item.id}}"><i class="fa fa-pen"
-                        aria-hidden="true"></i> Edit</a>
-                <form action="/sports/{{item.id}}?_method=DELETE" method="post" class="d-inline">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</button>
-                </form>
+            <div class="row">
+                <div class="col-md-8 offset-2">
+                    {{#if (Icon user.id item.user.id)}}
+                    <div class="mt-2">
+                        <a class="btn btn-info" href="/sports/edit/{{item.id}}"><i class="fa fa-pen"
+                                aria-hidden="true"></i>EDIT</a>
+                        <form action="/sports/{{item.id}}?_method=DELETE" method="post" class="d-inline">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>DELETE</button>
+                        </form>
+                    </div>
+                    {{/if}}
+                </div>
             </div>
-            {{/if}}
         </div>
         <div class="col-md-6 text-white">
             <h3>{{item.name}}</h3>

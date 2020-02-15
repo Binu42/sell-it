@@ -25,7 +25,7 @@
             </div>
         </div>
         {{#each books}}
-        <div class="col-md-4 col-lg-3 mt-4">
+        <div class="col-md-6 col-lg-4 mt-4">
             <div id="book-card" class="card">
                 {{#if (Icon ../user.id user)}}
                 <div class="header">
@@ -60,5 +60,30 @@
             <h4 class="text-success text-center mt-4">NO Books Founds (- , -)</h4>
         </div>
         {{/each}}
+        {{#if pages}}
+        <div class="m-auto">
+            <nav aria-label="Page navigation">
+                <ul class="pagination mt-2">
+                    <li class="page-item {{#if (equality currentPage 1)}} disabled {{/if}}">
+                        <a class="page-link" href="/books/buy/1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {{!-- <a class="page-item"><a class="page-link" href="/books/buy/1">1</a></a>
+                    <li class="page-item"><a class="page-link" href="/books/buy/2">2</a></li> --}}
+                    {{#pagination pages currentPage}}
+
+                    {{/pagination}}
+                    <li class="page-item {{#if (equality currentPage pages)}} disabled {{/if}}">
+                        <a class="page-link" href="/books/buy/{{pages}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        {{/if}}
     </div>
 </div>

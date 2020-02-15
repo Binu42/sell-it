@@ -27,11 +27,20 @@ router.get('/sell', ensureAuthenticated, (req, res) => {
 // @Access  private
 // @route   get /books/buy
 // @desc    for buying books
-router.get('/buy', ensureAuthenticated, (req, res) => {
-    Book.find()
+router.get('/buy/:page', ensureAuthenticated, async (req, res) => {
+    // console.log(req.params.page)
+
+    const totalDocs = await Book.countDocuments();
+    const pages = Math.ceil(totalDocs / 6);
+    Book.find({})
+        .skip(6 * (req.params.page - 1))
+        .limit(6)
         .then(books => {
+            // console.log("all books", books)
             res.render('book/buy', {
-                books: books
+                books: books,
+                pages: pages,
+                currentPage: req.params.page
             });
         })
 })
@@ -61,7 +70,7 @@ router.post('/sell', ensureAuthenticated, upload.single('book_pic'), async (req,
     newBook.save()
         .then(book => {
             req.flash('success_msg', 'Successfully uploaded');
-            res.redirect('/books/buy');
+            res.redirect('/books/buy/1');
         })
         .catch(error => {
             console.log(error);
@@ -74,8 +83,8 @@ router.post('/sell', ensureAuthenticated, upload.single('book_pic'), async (req,
 // @desc    show details about books
 router.get('/:id', ensureAuthenticated, (req, res) => {
     Book.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .populate('user', ['name', 'address', 'contact', 'profile'])
         .populate('comments.commentUser', ['name', 'profile'])
         .then(item => {
@@ -117,8 +126,8 @@ router.post('/recycle', ensureAuthenticated, (req, res) => {
 // @desc    adding comments on books item
 router.post('/comments/:id', ensureAuthenticated, (req, res) => {
     Book.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .then(book => {
             const newComment = {
                 commentBody: req.body.comment,
@@ -142,8 +151,8 @@ router.post('/comments/:id', ensureAuthenticated, (req, res) => {
 // @desc    deleting comments on books
 router.get('/comments/:bookId/:commentId', ensureAuthenticated, (req, res) => {
     Book.findOne({
-            _id: req.params.bookId
-        })
+        _id: req.params.bookId
+    })
         .then(book => {
             const index = book.comments.map(comment => comment.id).indexOf(req.params.commentId);
             if (index !== -1) {
@@ -174,8 +183,8 @@ router.get('/comments/:bookId/:commentId', ensureAuthenticated, (req, res) => {
 // @desc    form for editing of book details provided
 router.get('/edit/:id', ensureAuthenticated, (req, res) => {
     Book.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .then(book => {
             if (book.user.toString() === req.user.id.toString()) {
                 res.render('book/edit', {
@@ -197,15 +206,15 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
 // @desc    deleting of books
 router.delete('/:id', ensureAuthenticated, (req, res) => {
     Book.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .then(book => {
             if (book.user.toString() === req.user.id.toString()) {
                 const name = book.image.substr(62).slice(0, -4);
                 cloudinary.v2.uploader.destroy(name, (error, result) => {
-                    if(!error){
+                    if (!error) {
                         console.log(result);
-                    }else{
+                    } else {
                         console.log(error);
                     }
                 });
@@ -228,8 +237,8 @@ router.delete('/:id', ensureAuthenticated, (req, res) => {
 // @desc    submit form after editing of books
 router.put('/:id', ensureAuthenticated, (req, res) => {
     Book.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .then(book => {
             if (book.user.toString() === req.user.id.toString()) {
                 book.name = req.body.name,
@@ -256,8 +265,8 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
 
 router.post('/search', ensureAuthenticated, (req, res) => {
     Book.find({
-            section: req.body.section
-        })
+        section: req.body.section
+    })
         .then(books => {
             res.render('book/buy', {
                 books: books,

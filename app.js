@@ -50,7 +50,9 @@ require('./config/passport')(passport);
 const {
     formatDate,
     Icon,
-    select
+    select,
+    pagination,
+    equality
 } = require('./helper/hbs');
 
 // To save session as cookies
@@ -84,7 +86,9 @@ app.engine('handlebars', exphbs({
     helpers: {
         formatDate: formatDate,
         Icon: Icon,
-        select: select
+        pagination: pagination,
+        select: select,
+        equality: equality
     },
     defaultLayout: 'main'
 }));
@@ -128,8 +132,8 @@ app.get('/forgot', (req, res) => {
 // @desc    register users
 app.post('/register', upload.single('profile_pic'), (req, res) => {
     User.findOne({
-            email: req.body.email
-        })
+        email: req.body.email
+    })
         .then(async user => {
             if (user) {
                 req.flash('error_msg', "Email already Registered! Try another...");
@@ -174,8 +178,8 @@ app.post('/register', upload.single('profile_pic'), (req, res) => {
 
 app.post('/forgot', (req, res) => {
     User.findOne({
-            email: req.body.email
-        })
+        email: req.body.email
+    })
         .then(user => {
             if (user.secret === req.body.secret) {
                 res.render('users/changepassword', {
@@ -190,8 +194,8 @@ app.post('/forgot', (req, res) => {
 
 app.put('/:id/changepassword', (req, res) => {
     User.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .then(user => {
             bcrypt.genSalt(10, (error, salt) => {
                 bcrypt.hash(req.body.password, salt, (error, hash) => {
@@ -229,16 +233,16 @@ app.post('/login', function (req, res, next) {
 // @desc    details of what you selled
 app.get('/cart', ensureAuthenticated, (req, res) => {
     Book.find({
-            user: req.user.id
-        })
+        user: req.user.id
+    })
         .then(books => {
             Sport.find({
-                    user: req.user.id
-                })
+                user: req.user.id
+            })
                 .then(sports => {
                     Rental.find({
-                            user: req.user.id
-                        })
+                        user: req.user.id
+                    })
                         .then(rental => {
                             res.render('index/cart', {
                                 books: books,
@@ -255,8 +259,8 @@ app.get('/cart', ensureAuthenticated, (req, res) => {
 // @desc    loggedIn user details
 app.get('/profile', ensureAuthenticated, (req, res) => {
     User.findOne({
-            _id: req.user.id
-        })
+        _id: req.user.id
+    })
         .then(user => {
             res.render('index/profile', {
                 item: user
@@ -266,8 +270,8 @@ app.get('/profile', ensureAuthenticated, (req, res) => {
 
 app.get('/:id/profile', ensureAuthenticated, (req, res) => {
     User.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .then(user => {
             res.render('index/profile', {
                 item: user
@@ -277,8 +281,8 @@ app.get('/:id/profile', ensureAuthenticated, (req, res) => {
 
 app.get('/profile/edit/:id', ensureAuthenticated, (req, res) => {
     User.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .then(user => {
             if (req.user.id == user.id) {
                 res.render('index/profileedit', {
@@ -294,8 +298,8 @@ app.get('/profile/edit/:id', ensureAuthenticated, (req, res) => {
 
 app.put('/profile/edit/:id', ensureAuthenticated, upload.single('profile_pic'), (req, res) => {
     User.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .then(async user => {
             if (req.user.id === req.params.id) {
                 const name = user.profile.substr(62).slice(0, -4);

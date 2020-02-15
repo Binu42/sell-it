@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         {{#each sports}}
-        <div class="col-md-4 col-lg-3 mt-4">
+        <div class="col-md-6 col-lg-4 mt-4">
             <div id="sport-card" class="card">
                 {{#if (Icon ../user.id user)}}
                 <div class="header">
@@ -28,7 +28,7 @@
                 {{/if}}
                 <div id="sport-image" class="card-text">
                     <a href="/sports/{{id}}">
-                        <img src="{{image}}" width="300" class="img-fluid sport-img">
+                        <img src="{{image}}" class="img-fluid sport-img">
                     </a>
                 </div>
                 <div class="card-body text-center text-dark">

@@ -34,9 +34,9 @@ body {
   font-family: 'Roboto Slab', serif;
 }
 
-.navbar.navbar-light .navbar-toggler-icon {
+/* .navbar.navbar-light .navbar-toggler-icon {
   background-image: url('https://mdbootstrap.com/img/svg/hamburger3.svg?color=fff');
-}
+} */
 
 .navbar-collapse .nav-link {
   font-family: 'Heebo', sans-serif;
